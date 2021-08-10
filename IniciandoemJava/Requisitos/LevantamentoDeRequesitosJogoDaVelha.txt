@@ -1,0 +1,25 @@
+Algoritmo jogo da velha:
+
+     |       |
+     |       |
+-----|-------|-----
+     |       |
+-----|-------|-----
+     |       |
+     |       |
+
+Objetivo: Três símbolos iguais nas diagonais,vertical ou horizontal,vence o primeiro que completar(três circulos ou três xis).
+
+Regras:
+
+*Matriz 3x3;
+*Cada jogador escolhe uma representação simbólica;
+*Jogo alternado,uma marcação por vez em uma coluna que esteja vazia;
+*Ao conquistar o objetivo o vencedor é declarado riscando os três símbolos.
+
+
+Passo 1 - Definição dos jogadores
+passo 2 - criação do ambiente(#)
+passo 3 - Sorteio do iniciador da jogada
+Passo 4 - Escolha do símbolo
+passo 5 - Início do jogo
