@@ -1,15 +1,14 @@
-import java.util.Locale;
 import java.util.Objects;
 import java.util.Scanner;
 import static java.lang.Thread.sleep;
 
-class Main
-{
+class Main {
+    public static String J1;
+    public static String J2;
+
     public static void main(String[] args) throws InterruptedException {
         MsgBoasVindas();
         //Definição dos jogadores
-        String J1;
-        String J2;
         System.out.print("Jogador nº1: ");
         J1 = entrada.nextLine();
         System.out.print("Jogador nº2: ");
@@ -23,22 +22,22 @@ class Main
         CriaJogoDaVelha();
     }
 
+    public static String[][] jogoDaVelha = new String[3][3];
     public static Scanner entrada;
 
     static {
         entrada = new Scanner(System.in);
     }
 
-    public static void MsgBoasVindas()
-    {
+    public static void MsgBoasVindas() {
         System.out.println("| Sejam muito bem-vindos ao Jogo da velha 2021 |");
         System.out.println("A seguir vamos conhecer nossos jogadores...");
     }
 
-    public static String DefinindoJogadores(String J1, String J2)
-    {
+    public static String DefinindoJogadores(String J1, String J2) {
         return "Olá, " + J1 + " e " + J2 + ",a próxima etapa antes de começarem o jogo é pedra,papel e tesoura para definir quem irá começar primeiro";
     }
+
     //Escopo de jogadores
     public static String player2;
     public static String vencedor;
@@ -50,8 +49,7 @@ class Main
     //Variável para armazenar o vencedor do jogo
     public static String vencedorDoJogo = "";
 
-    public static void Joquempo(String J1, String J2) throws InterruptedException
-    {
+    public static void Joquempo(String J1, String J2) throws InterruptedException {
         System.out.println("---------\n[1] Pedra\n[2] Papel\n[3] Tesoura\n---------");
 
         String resultado = "";
@@ -81,30 +79,21 @@ class Main
 
             MsgJoquempo();
 
-            if (Jogador1 == Jogador2)
-            {
+            if (Jogador1 == Jogador2) {
                 System.out.println("Empate");
-            }
-            else if (Jogador1 == 1 && Jogador2 == 3)
-            {
+            } else if (Jogador1 == 1 && Jogador2 == 3) {
                 resultado = J1 + " vencedor";
                 player2 = J2;
                 vencedor = J1;
-            }
-            else if (Jogador1 == 2 && Jogador2 == 1)
-            {
+            } else if (Jogador1 == 2 && Jogador2 == 1) {
                 resultado = J1 + " vencedor";
                 player2 = J2;
                 vencedor = J1;
-            }
-            else if (Jogador1 == 3 && Jogador2 == 2)
-            {
+            } else if (Jogador1 == 3 && Jogador2 == 2) {
                 resultado = J1 + " vencedor";
                 player2 = J2;
                 vencedor = J1;
-            }
-            else
-            {
+            } else {
                 resultado = J2 + " vencedor";
                 player2 = J1;
                 vencedor = J2;
@@ -118,7 +107,8 @@ class Main
         s2 = entrada.next();
 
     }
-        public static void MsgJoquempo() throws InterruptedException {
+
+    public static void MsgJoquempo() throws InterruptedException {
         System.out.print("Joquempôôô");
         sleep(500);
         System.out.print(".");
@@ -130,188 +120,351 @@ class Main
 
     public static void CriaJogoDaVelha() throws InterruptedException {
         //Criação do ambiente do jogo
-        String[][] jogoDaVelha = new String[3][3];
-        for(int linha = 0;linha < 3;linha++)
-            for(int coluna = 0;coluna < 3;coluna++)
-            {
-                System.out.println("Jogador 1 escolha uma posição: ");
-                System.out.println("Dica:Pressione Q para ver a representação gráfica das posições");
-                String position1 = entrada.nextLine().toUpperCase(Locale.ROOT);
-                while(Objects.equals(position1,"Q"))
-                {
-                    switch (position1)
-                    {
-                        case "Q":
-                            RepresentacaoDoAmbiente();
-                        case "1":
-                            jogoDaVelha[0][0] = s1;
-                            break;
-                        case "2":
-                            jogoDaVelha[0][1] = s1;
-                            break;
-                        case "3":
-                            jogoDaVelha[0][2] = s1;
-                            break;
-                        case "4":
-                            jogoDaVelha[1][0] = s1;
-                            break;
-                        case "5":
-                            jogoDaVelha[1][1] = s1;
-                            break;
-                        case "6":
-                            jogoDaVelha[1][2] = s1;
-                            break;
-                        case "7":
-                            jogoDaVelha[2][0] = s1;
-                        case "8":
-                            jogoDaVelha[2][1] = s1;
-                        case "9":
-                            jogoDaVelha[2][2] = s1;
-                    }
-                    System.out.println("Jogador 1 escolha uma posição: ");
-                    position1 = entrada.next().toUpperCase(Locale.ROOT);
+        for (int iteracoes = 0; iteracoes < 5; iteracoes++) {
+            TabelaRepresentacao();
+            RepresentacaoDoAmbiente();
+            System.out.println("Jogador 1 escolha uma posição: ");
+            int position1 = entrada.nextInt();
+            int contador = 0;
+            String StatusPosition = "vazia";
 
-                }
-                MsgVencedorDoJogo();
-                //Usando o mínimo de jogadas necessárias para poder ter um vencedor
-                if(linha == 1 && coluna == 1)
-                {
-                   if(Objects.equals(jogoDaVelha[0][0], jogoDaVelha[1][0]) && Objects.equals(jogoDaVelha[1][0], jogoDaVelha[2][0]))
-                   {
-                       System.out.println("Jogador 1 vencedor do jogo!");
-                   }
-                   else if(Objects.equals(jogoDaVelha[0][1], jogoDaVelha[1][1]) && Objects.equals(jogoDaVelha[1][1], jogoDaVelha[2][1]))
-                   {
-                       System.out.println("Jogador 1 vencedor do jogo!");
-                   }
-                   else if(Objects.equals(jogoDaVelha[0][2], jogoDaVelha[1][2]) && Objects.equals(jogoDaVelha[1][2], jogoDaVelha[2][2]))
-                   {
-                       System.out.println("Jogador 1 vencedor do jogo!");
-                   }
-                   else if(Objects.equals(jogoDaVelha[0][0], jogoDaVelha[0][1]) && Objects.equals(jogoDaVelha[0][1], jogoDaVelha[0][2]))
-                   {
-                       System.out.println("Jogador 1 vencedor do jogo!");
-                   }
-                   else if(Objects.equals(jogoDaVelha[1][0], jogoDaVelha[1][1]) && Objects.equals(jogoDaVelha[1][1], jogoDaVelha[1][2]))
-                   {
-                       System.out.println("Jogador 1 vencedor do jogo!");
-                   }
-                   else if(Objects.equals(jogoDaVelha[2][0], jogoDaVelha[2][1]) && Objects.equals(jogoDaVelha[2][1], jogoDaVelha[2][2]))
-                   {
-                       System.out.println("Jogador 1 vencedor do jogo!");
-                   }
-                   else if(Objects.equals(jogoDaVelha[0][0], jogoDaVelha[1][1]) && Objects.equals(jogoDaVelha[1][1], jogoDaVelha[2][2]))
-                   {
-                       System.out.println("Jogador 1 vencedor do jogo!");
-                   }
-                   else if(Objects.equals(jogoDaVelha[0][2], jogoDaVelha[1][1]) && Objects.equals(jogoDaVelha[1][1], jogoDaVelha[2][0]))
-                   {
-                       System.out.println("Jogador 1 vencedor do jogo!");
-                   }
-                   else
-                       System.exit(0);
-                }
-
-                System.out.println("Jogador 1 escolha uma posição: ");
-                System.out.println("Dica:Pressione Q para ver a representação gráfica das posições");
-                String position2 = entrada.nextLine().toUpperCase(Locale.ROOT);
-                while(Objects.equals(position1, "Q"))
-                {
-                    switch (position2)
-                    {
-                        case "Q":
-                            RepresentacaoDoAmbiente();
-                        case "1":
-                            jogoDaVelha[0][0] = s1;
-                            break;
-                        case "2":
-                            jogoDaVelha[0][1] = s1;
-                            break;
-                        case "3":
-                            jogoDaVelha[0][2] = s1;
-                            break;
-                        case "4":
-                            jogoDaVelha[1][0] = s1;
-                            break;
-                        case "5":
-                            jogoDaVelha[1][1] = s1;
-                            break;
-                        case "6":
-                            jogoDaVelha[1][2] = s1;
-                            break;
-                        case "7":
-                            jogoDaVelha[2][0] = s1;
-                        case "8":
-                            jogoDaVelha[2][1] = s1;
-                        case "9":
-                            jogoDaVelha[2][2] = s1;
-                    }
-                    System.out.println("Jogador 1 escolha uma posição: ");
-                    position2 = entrada.next().toUpperCase(Locale.ROOT);
-                }
-                if(linha == 1 && coluna == 1)
-                {
-                    if(Objects.equals(jogoDaVelha[0][0], jogoDaVelha[1][0]) && Objects.equals(jogoDaVelha[1][0], jogoDaVelha[2][0]))
-                    {
-                        System.out.println("Jogador 1 vencedor do jogo!");
-                    }
-                    else if(Objects.equals(jogoDaVelha[0][1], jogoDaVelha[1][1]) && Objects.equals(jogoDaVelha[1][1], jogoDaVelha[2][1]))
-                    {
-                        System.out.println("Jogador 1 vencedor do jogo!");
-                    }
-                    else if(Objects.equals(jogoDaVelha[0][2], jogoDaVelha[1][2]) && Objects.equals(jogoDaVelha[1][2], jogoDaVelha[2][2]))
-                    {
-                        System.out.println("Jogador 1 vencedor do jogo!");
-                    }
-                    else if(Objects.equals(jogoDaVelha[0][0], jogoDaVelha[0][1]) && Objects.equals(jogoDaVelha[0][1], jogoDaVelha[0][2]))
-                    {
-                        System.out.println("Jogador 1 vencedor do jogo!");
-                    }
-                    else if(Objects.equals(jogoDaVelha[1][0], jogoDaVelha[1][1]) && Objects.equals(jogoDaVelha[1][1], jogoDaVelha[1][2]))
-                    {
-                        System.out.println("Jogador 1 vencedor do jogo!");
-                    }
-                    else if(Objects.equals(jogoDaVelha[2][0], jogoDaVelha[2][1]) && Objects.equals(jogoDaVelha[2][1], jogoDaVelha[2][2]))
-                    {
-                        System.out.println("Jogador 1 vencedor do jogo!");
-                    }
-                    else if(Objects.equals(jogoDaVelha[0][0], jogoDaVelha[1][1]) && Objects.equals(jogoDaVelha[1][1], jogoDaVelha[2][2]))
-                    {
-                        System.out.println("Jogador 1 vencedor do jogo!");
-                    }
-                    else if(Objects.equals(jogoDaVelha[0][2], jogoDaVelha[1][1]) && Objects.equals(jogoDaVelha[1][1], jogoDaVelha[2][0]))
-                    {
-                        System.out.println("Jogador 1 vencedor do jogo!");
-                    }
-                    else
-                        System.exit(0);
-                }
-                MsgVencedorDoJogo();
-                if(linha == 2 && coluna == 2)
-                    System.out.println("EMPATE!");
+            //validação de posição
+            while (position1 < 1 || position1 > 9) {
+                System.out.print("Posição inválida");
+                RepresentacaoDoAmbiente();
+                System.out.print("Escolha outra: ");
+                position1 = entrada.nextInt();
             }
-    }
 
-    public static void RepresentacaoDoAmbiente()
-    {
-        System.out.println("Posições do game: \n");
-        System.out.println("__1__|__2__|__3__");
-        System.out.println("__4__|__5__|__6__");
-        System.out.println("__7__|__8__|__9__");
-    }
+            while (StatusPosition.equals("vazia")) {
+                if (contador == 1) {
+                    System.out.println("Posição ocupada,escolha outra: ");
+                    position1 = entrada.nextInt();
+                }
+                switch (position1) {
+                    case 1:
+                        if (Objects.equals(jogoDaVelha[0][0], null)) {
+                            jogoDaVelha[0][0] = s1;
+                            StatusPosition = "ocupada";
+                        } else {
+                            System.out.println("Posição já ocupada!");
+                            contador++;
+                        }
+                        break;
+                    case 2:
+                        if (Objects.equals(jogoDaVelha[0][1], null)) {
+                            jogoDaVelha[0][1] = s1;
+                            StatusPosition = "ocupada";
+                        } else {
+                            System.out.println("Posição já ocupada!");
+                            contador++;
+                        }
+                        break;
+                    case 3:
+                        if (Objects.equals(jogoDaVelha[0][2], null)) {
+                            jogoDaVelha[0][2] = s1;
+                            StatusPosition = "ocupada";
+                        } else {
+                            System.out.println("Posição já ocupada!");
+                            contador++;
+                        }
+                        break;
+                    case 4:
+                        if (Objects.equals(jogoDaVelha[1][0], null)) {
+                            jogoDaVelha[1][0] = s1;
+                            StatusPosition = "ocupada";
+                        } else {
+                            System.out.println("Posição já ocupada!");
+                            contador++;
+                        }
+                        break;
+                    case 5:
+                        if (Objects.equals(jogoDaVelha[1][1], null)) {
+                            jogoDaVelha[1][1] = s1;
+                            StatusPosition = "ocupada";
+                        } else {
+                            System.out.println("Posição já ocupada!");
+                            contador++;
+                        }
+                        break;
+                    case 6:
+                        if (Objects.equals(jogoDaVelha[1][2], null)) {
+                            jogoDaVelha[1][2] = s1;
+                            StatusPosition = "ocupada";
+                        } else {
+                            System.out.println("Posição já ocupada!");
+                            contador++;
+                        }
+                        break;
+                    case 7:
+                        if (Objects.equals(jogoDaVelha[2][0], null)) {
+                            jogoDaVelha[2][0] = s1;
+                            StatusPosition = "ocupada";
+                        } else {
+                            System.out.println("Posição já ocupada!");
+                            contador++;
+                        }
+                        break;
+                    case 8:
+                        if (Objects.equals(jogoDaVelha[2][1], null)) {
+                            jogoDaVelha[2][1] = s1;
+                            StatusPosition = "ocupada";
+                        } else {
+                            System.out.println("Posição já ocupada!");
+                            contador++;
+                        }
+                        break;
+                    case 9:
+                        if (Objects.equals(jogoDaVelha[2][2], null)) {
+                            jogoDaVelha[2][2] = s1;
+                            StatusPosition = "ocupada";
+                        } else {
+                            System.out.println("Posição já ocupada!");
+                            contador++;
+                        }
+                }
+            }
+            //Usando o mínimo de jogadas necessárias para poder ter um vencedor
+            if (iteracoes == 3) {
+                //vertical linha 1
+                if (Objects.equals(jogoDaVelha[0][0], jogoDaVelha[1][0]) && Objects.equals(jogoDaVelha[1][0], jogoDaVelha[2][0])) {
+                    System.out.println("Jogador 1 vencedor do jogo!");
+                    vencedorDoJogo = J1;
+                    MsgVencedorDoJogo();
+                    System.exit(0);
+                }
+                //vertical linha 2
+                else if (Objects.equals(jogoDaVelha[0][1], jogoDaVelha[1][1]) && Objects.equals(jogoDaVelha[1][1], jogoDaVelha[2][1])) {
+                    System.out.println("Jogador 1 vencedor do jogo!");
+                    vencedorDoJogo = J1;
+                    MsgVencedorDoJogo();
+                    System.exit(0);
+                }
+                //vertical linha 3
+                else if (Objects.equals(jogoDaVelha[0][2], jogoDaVelha[1][2]) && Objects.equals(jogoDaVelha[1][2], jogoDaVelha[2][2])) {
+                    System.out.println("Jogador 1 vencedor do jogo!");
+                    vencedorDoJogo = J1;
+                    MsgVencedorDoJogo();
+                    System.exit(0);
+                }
+                //horizontal linha 1
+                else if (Objects.equals(jogoDaVelha[0][0], jogoDaVelha[0][1]) && Objects.equals(jogoDaVelha[0][1], jogoDaVelha[0][2])) {
+                    System.out.println("Jogador 1 vencedor do jogo!");
+                    vencedorDoJogo = J1;
+                    MsgVencedorDoJogo();
+                    System.exit(0);
+                }
+                //horizontal linha 2
+                else if (Objects.equals(jogoDaVelha[1][0], jogoDaVelha[1][1]) && Objects.equals(jogoDaVelha[1][1], jogoDaVelha[1][2])) {
+                    System.out.println("Jogador 1 vencedor do jogo!");
+                    vencedorDoJogo = J1;
+                    MsgVencedorDoJogo();
+                    System.exit(0);
+                }
+                //horizontal linha 3
+                else if (Objects.equals(jogoDaVelha[2][0], jogoDaVelha[2][1]) && Objects.equals(jogoDaVelha[2][1], jogoDaVelha[2][2])) {
+                    System.out.println("Jogador 1 vencedor do jogo!");
+                    vencedorDoJogo = J1;
+                    MsgVencedorDoJogo();
+                    System.exit(0);
+                }
+                //diagonal 1
+                else if (Objects.equals(jogoDaVelha[0][0], jogoDaVelha[1][1]) && Objects.equals(jogoDaVelha[1][1], jogoDaVelha[2][2])) {
+                    System.out.println("Jogador 1 vencedor do jogo!");
+                    vencedorDoJogo = J1;
+                    MsgVencedorDoJogo();
+                    System.exit(0);
+                }
+                //diagonal 2
+                else if (Objects.equals(jogoDaVelha[0][2], jogoDaVelha[1][1]) && Objects.equals(jogoDaVelha[1][1], jogoDaVelha[2][0])) {
+                    System.out.println("Jogador 1 vencedor do jogo!");
+                    vencedorDoJogo = J1;
+                    MsgVencedorDoJogo();
+                    System.exit(0);
+                }
+            }
+            //verificando se deu empate
+            int arm = 0;
+            for (int linha = 0; linha < 3; linha++)
+                for (int coluna = 0; coluna < 3; coluna++) {
+                    if (jogoDaVelha[linha][coluna] != null) {
+                        arm++;
+                        if (arm == 9) {
+                            System.out.println("EMPATE!");
+                            System.exit(0);
+                        }
+                    }
+                }
 
-    public static void MsgVencedorDoJogo() throws InterruptedException
-    {
-        if(vencedorDoJogo.equals(vencedor) || vencedorDoJogo.equals(player2))
-        {
-            System.out.println("Xéque mate");
-            sleep(500);
-            System.out.println(".");
-            sleep(500);
-            System.out.println(".");
-            sleep(500);
-            System.out.println(".");
-            System.out.println("Ops,jogo errado,mas temos um vencedor,parabéns " + vencedorDoJogo);
+            RepresentacaoDoAmbiente();
+            System.out.println("Jogador 2 escolha uma posição: ");
+            int position2 = entrada.nextInt();
+            String StatusPosition2 = "vazia";
+            int contador2 = 0;
+
+            while (position2 < 1 || position2 > 9) {
+                System.out.print("Posição inválida,escolha outra: ");
+                position2 = entrada.nextInt();
+            }
+
+            while (StatusPosition2.equals("vazia")) {
+                if (contador2 > 0) {
+                    System.out.println("Posição ocupada,escolha outra: ");
+                    position2 = entrada.nextInt();
+                }
+
+                switch (position2) {
+                    case 1:
+                        if (Objects.equals(jogoDaVelha[0][0], null)) {
+                            jogoDaVelha[0][0] = s2;
+                            StatusPosition2 = "ocupada";
+                        } else {
+                            System.out.println("Posição já ocupada!");
+                            contador2++;
+                        }
+                        break;
+                    case 2:
+                        if (Objects.equals(jogoDaVelha[0][1], null)) {
+                            jogoDaVelha[0][1] = s2;
+                            StatusPosition2 = "ocupada";
+                        } else {
+                            System.out.println("Posição já ocupada!");
+                            contador2++;
+                        }
+                        break;
+                    case 3:
+                        if (Objects.equals(jogoDaVelha[0][2], null)) {
+                            jogoDaVelha[0][2] = s2;
+                            StatusPosition2 = "ocupada";
+                        } else {
+                            System.out.println("Posição já ocupada!");
+                            contador2++;
+                        }
+                        break;
+                    case 4:
+                        if (Objects.equals(jogoDaVelha[1][0], null)) {
+                            jogoDaVelha[1][0] = s2;
+                            StatusPosition2 = "ocupada";
+                        } else {
+                            System.out.println("Posição já ocupada!");
+                            contador2++;
+                        }
+                        break;
+                    case 5:
+                        if (Objects.equals(jogoDaVelha[1][1], null)) {
+                            jogoDaVelha[1][1] = s2;
+                            StatusPosition2 = "ocupada";
+                        } else {
+                            System.out.println("Posição já ocupada!");
+                            contador2++;
+                        }
+                        break;
+                    case 6:
+                        if (Objects.equals(jogoDaVelha[1][2], null)) {
+                            jogoDaVelha[1][2] = s2;
+                            StatusPosition2 = "ocupada";
+                        } else {
+                            System.out.println("Posição já ocupada!");
+                            contador2++;
+                        }
+                        break;
+                    case 7:
+                        if (Objects.equals(jogoDaVelha[2][0], null)) {
+                            jogoDaVelha[2][0] = s2;
+                            StatusPosition2 = "ocupada";
+                        } else {
+                            System.out.println("Posição já ocupada!");
+                            contador2++;
+                        }
+                        break;
+                    case 8:
+                        if (Objects.equals(jogoDaVelha[2][1], null)) {
+                            jogoDaVelha[2][1] = s2;
+                            StatusPosition2 = "ocupada";
+                        } else {
+                            System.out.println("Posição já ocupada!");
+                            contador2++;
+                        }
+                        break;
+                    case 9:
+                        if (Objects.equals(jogoDaVelha[2][2], null)) {
+                            jogoDaVelha[2][2] = s2;
+                            StatusPosition2 = "ocupada";
+                        } else {
+                            System.out.println("Posição já ocupada!");
+                            contador2++;
+                        }
+                        break;
+                }
+            }
+            if (iteracoes == 3) {
+                if (Objects.equals(jogoDaVelha[0][0], jogoDaVelha[1][0]) && Objects.equals(jogoDaVelha[1][0], jogoDaVelha[2][0])) {
+                    System.out.println("Jogador 2 vencedor do jogo!");
+                    vencedorDoJogo = J2;
+                    MsgVencedorDoJogo();
+                    System.exit(0);
+                } else if (Objects.equals(jogoDaVelha[0][1], jogoDaVelha[1][1]) && Objects.equals(jogoDaVelha[1][1], jogoDaVelha[2][1])) {
+                    System.out.println("Jogador 2 vencedor do jogo!");
+                    vencedorDoJogo = J2;
+                    MsgVencedorDoJogo();
+                    System.exit(0);
+                } else if (Objects.equals(jogoDaVelha[0][2], jogoDaVelha[1][2]) && Objects.equals(jogoDaVelha[1][2], jogoDaVelha[2][2])) {
+                    System.out.println("Jogador 2 vencedor do jogo!");
+                    vencedorDoJogo = J2;
+                    MsgVencedorDoJogo();
+                    System.exit(0);
+                } else if (Objects.equals(jogoDaVelha[0][0], jogoDaVelha[0][1]) && Objects.equals(jogoDaVelha[0][1], jogoDaVelha[0][2])) {
+                    System.out.println("Jogador 2 vencedor do jogo!");
+                    vencedorDoJogo = J2;
+                    MsgVencedorDoJogo();
+                    System.exit(0);
+                } else if (Objects.equals(jogoDaVelha[1][0], jogoDaVelha[1][1]) && Objects.equals(jogoDaVelha[1][1], jogoDaVelha[1][2])) {
+                    System.out.println("Jogador 2 vencedor do jogo!");
+                    vencedorDoJogo = J2;
+                    MsgVencedorDoJogo();
+                    System.exit(0);
+                } else if (Objects.equals(jogoDaVelha[2][0], jogoDaVelha[2][1]) && Objects.equals(jogoDaVelha[2][1], jogoDaVelha[2][2])) {
+                    System.out.println("Jogador 2 vencedor do jogo!");
+                    vencedorDoJogo = J2;
+                    MsgVencedorDoJogo();
+                    System.exit(0);
+                } else if (Objects.equals(jogoDaVelha[0][0], jogoDaVelha[1][1]) && Objects.equals(jogoDaVelha[1][1], jogoDaVelha[2][2])) {
+                    System.out.println("Jogador 2 vencedor do jogo!");
+                    vencedorDoJogo = J2;
+                    MsgVencedorDoJogo();
+                    System.exit(0);
+                } else if (Objects.equals(jogoDaVelha[0][2], jogoDaVelha[1][1]) && Objects.equals(jogoDaVelha[1][1], jogoDaVelha[2][0])) {
+                    System.out.println("Jogador 2 vencedor do jogo!");
+                    vencedorDoJogo = J2;
+                    MsgVencedorDoJogo();
+                    System.exit(0);
+                }
+            }
         }
+    }
+
+    public static void RepresentacaoDoAmbiente() {
+        System.out.println("Posições do game: ");
+        System.out.printf("  %s  |  %s  |  %s  \n", jogoDaVelha[0][0], jogoDaVelha[0][1], jogoDaVelha[0][2]);
+        System.out.printf("  %s  |  %s  |  %s  \n", jogoDaVelha[1][0], jogoDaVelha[1][1], jogoDaVelha[1][2]);
+        System.out.printf("  %s  |  %s  |  %s  \n", jogoDaVelha[2][0], jogoDaVelha[2][1], jogoDaVelha[2][2]);
+    }
+
+    public static void TabelaRepresentacao() {
+        System.out.println("Representação das posições abaixo: ");
+        System.out.println("  1  |  2  |  3  \n");
+        System.out.println("  4  |  5  |  6   \n");
+        System.out.println("  7  |  8  |  9   \n");
+    }
+
+    public static void MsgVencedorDoJogo() throws InterruptedException {
+        System.out.print("Xéque mate");
+        sleep(500);
+        System.out.print(".");
+        sleep(500);
+        System.out.print(".");
+        sleep(500);
+        System.out.println(".");
+        System.out.println("Ops,jogo errado,mas temos um vencedor,parabéns " + vencedorDoJogo);
     }
 }
