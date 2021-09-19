@@ -1,11 +1,12 @@
+import java.util.Arrays;
 public class Filas {
 
     String[] dados;
-    short capacidade;
-    short ultimo = 0;
-    short elementos = 0;
+    int capacidade;
+    int ultimo;
+    int elementos;
 
-    public Filas(short capacidade)
+    public Filas(int capacidade)
     {
         this.dados = new String[capacidade];
         this.capacidade = capacidade;
@@ -23,36 +24,55 @@ public class Filas {
 
     public void adicionar(String nome)
     {
-        System.out.println("Digite um nome para adicionar a fila: ");
-        this.dados[ultimo] = nome;
-        this.ultimo++;
-        this.elementos++;
-        System.out.println(nome+" entrou na fila!");
+        if(cheia())
+            System.out.println("Fila cheia!");
+        else
+        {
+            this.dados[ultimo] = nome;
+            this.ultimo++;
+            this.elementos++;
+            System.out.println("\n"+nome+" entrou na fila!");
+        }
     }
 
     public void remover()
     {
-        if(!vazia())
+        if(vazia())
+        {
+            System.out.println("\nNão tem fila!");
+        }
+        else
         {
             String pessoaRemovida = dados[0];
-            this.dados[0] = null;
-            System.out.println(pessoaRemovida+" foi removido(a) da fila");
+            this.dados[0] = "";
+            System.out.println("\n"+pessoaRemovida+" foi removido(a) da fila");
+            ultimo--;
             elementos--;
             moverFila();
         }
-        else
-            System.out.println("Não tem fila!");
     }
 
     public void moverFila()
     {
         if(this.elementos <= this.capacidade-1)
         {
-            int i = 0;
-            while (i < this.capacidade-1) {
+            for(int i = 0;i < this.capacidade-1;i++)
+            {
                 this.dados[i] = this.dados[i+1];
-                i++;
             }
+            this.dados[ultimo] = null;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Fila: (dados → " + Arrays.toString(dados)+")";
+    }
+
+    public void dadosOrdenados()
+    {
+        System.out.print("Dados ordenados: ");
+        for(int i = 0; i < elementos; i++)
+            System.out.print(dados[i]+" ");
     }
 }
