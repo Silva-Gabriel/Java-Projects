@@ -252,7 +252,8 @@ class Main {
             int contador = 0;
             String StatusPosition = "vazia";
 
-            while (StatusPosition.equals("vazia")) {
+            while (StatusPosition.equals("vazia"))
+            {
                 if (contador == 1) {
                     System.out.println("Posição ocupada,escolha outra: ");
                     position1 = entrada.nextInt();

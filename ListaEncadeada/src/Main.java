@@ -8,11 +8,11 @@ public class Main
 
         GerenciadorLista gerenciador = new GerenciadorLista();
         System.out.println("O que deseja fazer?");
-        System.out.println("\n[1] - Adicionar\n[2] - Remover\n[3] - Mostrar lista\n[4] - Consultar dado\n[5] - Sair");
+        System.out.println("\n[1] - Adicionar\n[2] - Remover\n[3] - Mostrar lista\n[4] - Consultar dado\n[5] - Adicionar no fim\n[6] - remover do fim\n[7] - Sair");
         System.out.print("sua opcão: ");
         int opcao = entrada.nextInt();
 
-        while(opcao != 5)
+        while(opcao != 7)
         {
             switch (opcao) {
                 case 1 -> {
@@ -30,9 +30,17 @@ public class Main
                     else
                         System.out.println("\nValor não está contido na lista!");
                 }
+                case 5 -> {
+                    System.out.println("Escolha um número para adicionar no fim da lista: ");
+                    int valor = entrada.nextInt();
+                    gerenciador.adicionaFim(valor);
+                }
+                case 6 -> {
+                    gerenciador.removeFim();
+                }
             }
             System.out.println("\nO que deseja fazer?");
-            System.out.println("\n[1] - Adicionar\n[2] - Remover\n[3] - Mostrar lista\n[4] - Consultar dado\n[5] - Sair");
+            System.out.println("\n[1] - Adicionar\n[2] - Remover\n[3] - Mostrar lista\n[4] - Consultar dado\n[5] - Adicionar no fim\n[6] - remover do fim\n[7] - Sair");
             System.out.print("sua opcão: ");
             opcao = entrada.nextInt();
         }
