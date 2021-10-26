@@ -1,27 +1,33 @@
-//REVISAR DESAFIO
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
-public class Main {
+public class Main{
     public static void main(String[] args) {
-        Scanner entrada = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
 
-        int x = entrada.nextInt();
-        int y = entrada.nextInt();
-        int maior = Math.max(x,y);
-        int menor = Math.min(x,y);
-        ArrayList<Integer> valoresArmazenados = new ArrayList<>();
+        int valorX = input.nextInt();
+        int valorY = input.nextInt();
 
-        for(int i = menor;i < maior;i++)
+        System.out.print(verificaValores(valorX,valorY));
+    }
+
+    public static String verificaValores(int valor1, int valor2)
+    {
+        StringBuilder view = new StringBuilder();
+        int maior = Math.max(valor1,valor2);
+        ArrayList<Integer> resultado = new ArrayList<>();
+
+        for(int menor = Math.min(valor1,valor2);menor < maior;menor++)
         {
-            if(i % 5 == 2 || i % 5 == 3)
-                valoresArmazenados.add(i);
+            if(menor % 5 == 2 || menor % 5 == 3 )
+                resultado.add(menor);
         }
-        int[] valores = new int[valoresArmazenados.size()];
-        for(int i = 0; i < valoresArmazenados.size();i++)
-            valores[i] = valoresArmazenados.get(i);
-        Arrays.sort(valores);
-        for (int valor : valores) System.out.println(valor);
+        for(int i = 0;i < resultado.size();i++)
+        {
+            view.append(resultado.get(i));
+            if(i < resultado.size()-1)
+                view.append("\n");
+        }
+        return view.toString();
     }
 }
